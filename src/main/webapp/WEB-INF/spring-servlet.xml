@@ -20,7 +20,7 @@
 	</bean>
 	
 	<!-- file upload -->
-	<mvc:resources mapping="/images/**" location="file:./D:/mysite-upload/" />
+	<mvc:resources mapping="/images/**" location="file:./D:/jblog-upload/" />
 
 	<!-- validator, conservionService, messageconverter -->
 	<mvc:annotation-driven>

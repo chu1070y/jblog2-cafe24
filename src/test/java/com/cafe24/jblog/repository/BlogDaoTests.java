@@ -35,4 +35,15 @@ public class BlogDaoTests {
 		
 		System.out.println(dao.getBlogInfo(id));
 	}
+	
+	@Test
+	public void updateBlogInfo() {
+		
+		BlogVo vo = new BlogVo();
+		vo.setId("chu1070y");
+		vo.setLogo("/assets/images/spring-logo.jpg");
+		vo.setTitle("ttttttest");
+		
+		System.out.println(dao.updateBlog(vo));
+	}
 }

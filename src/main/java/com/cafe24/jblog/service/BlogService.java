@@ -12,9 +12,21 @@ public class BlogService {
 	@Autowired
 	private BlogDao blogDao;
 	
+	@Autowired
+	private FileUploadService fileUploadService;
+	
 	public BlogVo getBlogInfo(String id) {
 		
 		return blogDao.getBlogInfo(id);
+	}
+
+	public Boolean updateBlogInfo(BlogVo vo) {
+		
+		String url = fileUploadService.restore(vo.getMultipartFile());
+		vo.setLogo(url);
+		System.out.println(url);
+		
+		return blogDao.updateBlog(vo);
 	}
 
 }

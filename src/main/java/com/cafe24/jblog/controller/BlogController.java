@@ -20,11 +20,15 @@ public class BlogController {
 	private BlogService blogService;
 	
 	@GetMapping("")
-	public String blogMain(@PathVariable("id") String id, Model model){
-		if(blogService.getBlogInfo(id) == null) {
+	public String blogMain(@PathVariable("id") String id, BlogVo vo, Model model){
+		
+		vo = blogService.getBlogInfo(id);
+		
+		if( vo == null) {
 			return "/error/404";
 		}
 		
+		model.addAttribute("blogInfo", vo);
 		model.addAttribute("blogId", id);
 		return "/blog/blog-main";
 	}
@@ -38,9 +42,11 @@ public class BlogController {
 	}
 	
 	@PostMapping("admin/basic")
-	public String adminBasicPost(@PathVariable("id") String id, @ModelAttribute BlogVo vo){
+	public String adminBasicPost(@ModelAttribute BlogVo vo){
 		
-		return "/blog/blog-admin-basic";
+		blogService.updateBlogInfo(vo);
+		
+		return "redirect:/" + vo.getId() + "/admin/basic";
 	}
 	
 	@GetMapping("admin/category")
