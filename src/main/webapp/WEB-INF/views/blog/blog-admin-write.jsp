@@ -8,6 +8,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>JBlog</title>
 <Link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/jblog.css">
+<script type="text/javascript" src="${pageContext.servletContext.contextPath}/assets/js/jquery/jquery-1.9.0.js">
+</script>
 </head>
 <body>
 	<div id="container">
@@ -19,15 +21,16 @@
 					<li><a href="${pageContext.servletContext.contextPath}/${authUser.id }/admin/category">카테고리</a></li>
 					<li class="selected">글작성</li>
 				</ul>
-				<form action="" method="post">
+				<form action="${pageContext.servletContext.contextPath}/${authUser.id }/admin/writePost" method="post">
 			      	<table class="admin-cat-write">
 			      		<tr>
 			      			<td class="t">제목</td>
 			      			<td>
 			      				<input type="text" size="60" name="title">
-				      			<select name="category">
-				      				<option>미분류</option>
-				      				<option>자바</option>
+				      			<select name="categoryNo">
+				      				<c:forEach items='${categoryList}' var='categ'>
+				      					<option value="${categ.no }">${categ.title }</option>
+				      				</c:forEach>
 				      			</select>
 				      		</td>
 			      		</tr>
@@ -45,5 +48,17 @@
 		</div>
 		<c:import url="/WEB-INF/views/includes/footer_blog.jsp" />
 	</div>
+<script>
+$(function(){
+	
+	var category = $("#category");
+	
+
+
+	
+});
+</script>
+
+</script>
 </body>
 </html>

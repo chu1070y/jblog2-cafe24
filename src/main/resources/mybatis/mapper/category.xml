@@ -7,8 +7,16 @@
 		insert into category values(null, #{title}, #{description}, now(), #{blogId})
 	</insert>
 	
-	<select>
-		select 
+ 	<select id="getCategoryList" parameterType="string" resultType="categoryvo">
+ 		select a.no, a.title, a.description, count(b.no) as count
+		from category a left outer join post b 
+			on a.no = b.category_no
+		where a.id = #{id}
+        group by a.no
 	</select>
+	
+	<delete id="deleteCategory" parameterType="long">
+		delete from category where no = #{no}
+	</delete>
 	
 </mapper>

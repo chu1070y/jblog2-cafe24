@@ -46,4 +46,6 @@ public class BlogDaoTests {
 		
 		System.out.println(dao.updateBlog(vo));
 	}
+	
+	
 }
