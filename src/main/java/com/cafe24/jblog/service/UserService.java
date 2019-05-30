@@ -31,7 +31,7 @@ public class UserService {
 		BlogVo blogVo = new BlogVo();
 		blogVo.setId(userVo.getId());
 		blogVo.setTitle("임시 타이틀");
-		blogVo.setLogo("assets/images/spring-logo.jpg");
+		blogVo.setLogo("assets/images/noimage.jpg");
 		
 		Boolean blog = blogDao.insertBlog(blogVo);
 		

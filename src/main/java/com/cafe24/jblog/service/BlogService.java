@@ -66,9 +66,9 @@ public class BlogService {
 		return postDao.insertPost(vo);
 	}
 	
-	public List<PostVo> getPost(){
+	public List<PostVo> getPost(PostVo postVo){
 		
-		return postDao.getPost();
+		return postDao.getPost(postVo);
 	}
 
 }

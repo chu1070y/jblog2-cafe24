@@ -18,9 +18,10 @@
 		<!-- defaultEncoding -->
 		<property name="defaultEncoding" value="utf-8" />
 	</bean>
-	
+
 	<!-- file upload -->
-	<mvc:resources mapping="/images/**" location="file:./D:/jblog-upload/" />
+	<mvc:resources mapping="/images/**"
+		location="file:./D:/jblog-upload/" />
 
 	<!-- validator, conservionService, messageconverter -->
 	<mvc:annotation-driven>
@@ -46,7 +47,7 @@
 				</property>
 			</bean>
 		</mvc:message-converters>
-		
+
 		<!-- Argument Resolver -->
 		<mvc:argument-resolvers>
 			<bean
@@ -54,7 +55,7 @@
 		</mvc:argument-resolvers>
 
 	</mvc:annotation-driven>
-	
+
 	<!-- MessageSource -->
 	<bean id="messageSource"
 		class="org.springframework.context.support.ResourceBundleMessageSource">
@@ -64,7 +65,7 @@
 			</list>
 		</property>
 	</bean>
-	
+
 	<!-- Interceptors -->
 	<mvc:interceptors>
 
@@ -78,12 +79,18 @@
 			<bean class="com.cafe24.security.AuthLogoutInterceptor" />
 		</mvc:interceptor>
 
+		<mvc:interceptor>
+			<mvc:mapping path="/**" />
+			<mvc:exclude-mapping path="/user/**" />
+			<mvc:exclude-mapping path="/assets/**" />
+			<bean class="com.cafe24.security.AuthInterceptor" />
+		</mvc:interceptor>
 	</mvc:interceptors>
 
 
 	<!-- 서블릿 컨테이너의 디폴트 서블릿 위임 핸들러 -->
 	<mvc:default-servlet-handler />
-	
+
 	<!-- ViewResolver 설정 -->
 	<bean id="viewResolver"
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">

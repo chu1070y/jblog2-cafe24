@@ -11,8 +11,17 @@
 		delete from post where category_no = #{categoryNo}
 	</delete>
 	
-	<select id="getPostList" resultType="postvo">
-		select no,title,content, date_format(reg_date, '%Y/%m/%d') as regDate, category_no as categoryNo  from post order by no desc
+	<select id="getPostList" resultType="postvo" parameterType="postvo">
+		select a.no, a.title, a.content, date_format(a.reg_date, '%Y/%m/%d') as regDate, a.category_no as categoryNo
+		from post a, (select no from category where id = #{id}) b
+		where a.category_no = b.no
+		<if test="categoryNo != null">
+			and a.category_no = (select no from category where id = #{id} limit #{categoryNo} , 1)
+		</if>
+		<if test="no != null">
+			and a.no = #{no}
+		</if>
+		order by no desc
 	</select>
 	
 

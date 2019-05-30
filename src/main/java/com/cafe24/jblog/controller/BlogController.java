@@ -19,6 +19,7 @@ import com.cafe24.jblog.service.BlogService;
 import com.cafe24.jblog.vo.BlogVo;
 import com.cafe24.jblog.vo.CategoryVo;
 import com.cafe24.jblog.vo.PostVo;
+import com.cafe24.security.Auth;
 
 @Controller
 @RequestMapping("/{id:^(?!assets|images).*}")
@@ -36,6 +37,10 @@ public class BlogController {
 			@PathVariable("postNo") Optional<Long> postNo,
 			PostVo postVo, BlogVo blogVo, Model model){
 		
+		postVo.setCategoryNo(categoryNo.isPresent() ? categoryNo.get() : null);
+		postVo.setNo(postNo.isPresent() ? postNo.get() : null);
+		postVo.setId(id);
+		
 		blogVo = blogService.getBlogInfo(id);
 		
 		if(blogVo == null) {
@@ -43,7 +48,7 @@ public class BlogController {
 		}
 		
 		model.addAttribute("categorys", blogService.getCategoryList(id));
-		model.addAttribute("posts", blogService.getPost());
+		model.addAttribute("posts", blogService.getPost(postVo));
 		
 		model.addAttribute("blogInfo", blogVo);
 		return "/blog/blog-main";
@@ -51,7 +56,7 @@ public class BlogController {
 	
 	
 	////////////////////////////////////////////////// 관리자 기본설정 페이지
-	
+	@Auth
 	@GetMapping("admin/basic")
 	public String adminBasic(@PathVariable("id") String id, Model model){
 		
@@ -59,6 +64,7 @@ public class BlogController {
 		return "/blog/blog-admin-basic";
 	}
 	
+	@Auth
 	@PostMapping("admin/basic")
 	public String adminBasicPost(@ModelAttribute BlogVo vo){
 		
@@ -68,7 +74,7 @@ public class BlogController {
 	}
 	
 	////////////////////////////////////////////////// 관리자 카테고리 페이지
-	
+	@Auth
 	@GetMapping("admin/category")
 	public String adminCategory(@PathVariable("id") String id, Model model){
 		
@@ -77,6 +83,7 @@ public class BlogController {
 		return "/blog/blog-admin-category";
 	}
 	
+	@Auth
 	@ResponseBody
 	@PostMapping("admin/insertCategory")
 	public JSONResult insertCategory(@ModelAttribute CategoryVo vo) {
@@ -84,6 +91,7 @@ public class BlogController {
 		return JSONResult.success(blogService.insertCategory(vo));
 	}
 	
+	@Auth
 	@ResponseBody
 	@GetMapping("admin/getCategoryList")
 	public JSONResult getCategoryList(@RequestParam("id") String id) {
@@ -91,6 +99,7 @@ public class BlogController {
 		return JSONResult.success(blogService.getCategoryList(id));
 	}
 	
+	@Auth
 	@ResponseBody
 	@GetMapping("admin/deleteCategory")
 	public JSONResult deleteCategory(@PathVariable("id") String id, @ModelAttribute CategoryVo vo) {
@@ -101,7 +110,7 @@ public class BlogController {
 	
 	
 	////////////////////////////////////////////////// 관리자 글작성 페이지
-	
+	@Auth
 	@GetMapping("admin/write")
 	public String adminWrite(@PathVariable("id") String id, Model model){
 		
@@ -110,6 +119,7 @@ public class BlogController {
 		return "/blog/blog-admin-write";
 	}
 	
+	@Auth
 	@PostMapping("admin/writePost")
 	public String adminWritePost(@PathVariable("id") String id, @ModelAttribute PostVo vo, RedirectAttributes redirect){
 		

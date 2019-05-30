@@ -24,9 +24,9 @@ public class PostDao {
 		return 1 == sqlSession.delete("post.deletePost", vo);
 	}
 	
-	public List<PostVo> getPost(){
+	public List<PostVo> getPost(PostVo vo){
 		
-		return sqlSession.selectList("post.getPostList");
+		return sqlSession.selectList("post.getPostList", vo);
 	}
 
 }
