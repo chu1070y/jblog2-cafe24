@@ -39,6 +39,9 @@ public class CategoryDaoTests {
 	@Test
 	public void deleteCategory() {
 		
-		assertNotNull(dao.deleteCategory(7L));
+		CategoryVo vo = new CategoryVo();
+		vo.setNo(7L);
+		
+		assertNotNull(dao.deleteCategory(vo));
 	}
 }

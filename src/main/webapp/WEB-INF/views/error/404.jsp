@@ -13,7 +13,7 @@
 	<div class="center-content">
 		<c:import url="/WEB-INF/views/includes/header_main.jsp" />
 		<br/>
-		<strong><h1>잘못된 요청입니다.</h1></strong>
+		<strong><h1>요청하신 페이지는 존재하지 않습니다.</h1></strong>
 		<br/>
 		<a href="${pageContext.servletContext.contextPath}/main">메인으로 돌아가기</a>
 	</div>

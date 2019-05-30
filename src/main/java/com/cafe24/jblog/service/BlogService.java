@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.cafe24.jblog.repository.BlogDao;
 import com.cafe24.jblog.repository.CategoryDao;
@@ -48,12 +49,26 @@ public class BlogService {
 		return categoryDao.insertCategory(vo);
 	}
 	
-	public Boolean deleteCategory(Long no) {
-		return categoryDao.deleteCategory(no);
+	@Transactional
+	public Boolean deleteCategory(CategoryVo vo) {
+		
+		PostVo postVo = new PostVo();
+		postVo.setCategoryNo(vo.getNo());
+		postVo.setId(vo.getBlogId());
+		
+		postDao.deletePost(postVo);
+		
+		return categoryDao.deleteCategory(vo);
 	}
 	
 	public Boolean insertPost(PostVo vo) {
+		
 		return postDao.insertPost(vo);
+	}
+	
+	public List<PostVo> getPost(){
+		
+		return postDao.getPost();
 	}
 
 }

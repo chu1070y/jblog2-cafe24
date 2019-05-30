@@ -6,13 +6,13 @@
 
 <ul class="menu">
 		<div id="header">
-			<h1>Spring 이야기</h1>
+			<h1>${blogInfo.title }</h1>
 			<ul>
 				<c:choose>
 					<c:when test="${empty authUser}">
 						<li><a href="${pageContext.servletContext.contextPath}/user/login">로그인</a></li>
 					</c:when>
-					<c:when test="${authUser.id != blogId}">
+					<c:when test="${authUser.id != blogInfo.id}">
 						<li><a href="${pageContext.servletContext.contextPath}/user/logout">로그아웃</a></li>
 					</c:when>
 					<c:otherwise>

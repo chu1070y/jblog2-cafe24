@@ -4,8 +4,16 @@
 <mapper namespace="post">
 
 	<insert id="insertPost" parameterType="postvo">
-		insert into post value(null, #{title}, #{content}, now(), #{categoryNo})
+		insert into post value(null, #{title}, #{content}, now(), (select no from category where id = #{id} limit #{categoryNo} , 1))
 	</insert>
+	
+	<delete id="deletePost" parameterType="postvo">
+		delete from post where category_no = #{categoryNo}
+	</delete>
+	
+	<select id="getPostList" resultType="postvo">
+		select no,title,content, date_format(reg_date, '%Y/%m/%d') as regDate, category_no as categoryNo  from post order by no desc
+	</select>
 	
 
 </mapper>

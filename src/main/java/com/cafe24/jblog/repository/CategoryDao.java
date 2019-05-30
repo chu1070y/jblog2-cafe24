@@ -27,9 +27,9 @@ public class CategoryDao {
 		return 1 == count;
 	}
 	
-	public Boolean deleteCategory(Long no) {
+	public Boolean deleteCategory(CategoryVo vo) {
 		
-		int count = sqlSession.delete("category.deleteCategory", no);
+		int count = sqlSession.delete("category.deleteCategory", vo);
 		
 		return 1 == count;
 	}

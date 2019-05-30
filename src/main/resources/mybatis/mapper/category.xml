@@ -15,7 +15,7 @@
         group by a.no
 	</select>
 	
-	<delete id="deleteCategory" parameterType="long">
+	<delete id="deleteCategory" parameterType="categoryvo">
 		delete from category where no = #{no}
 	</delete>
 	

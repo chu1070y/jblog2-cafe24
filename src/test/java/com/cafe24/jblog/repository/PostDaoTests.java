@@ -24,8 +24,18 @@ public class PostDaoTests {
 		vo.setTitle("카테고릐");
 		vo.setContent("11212312");
 		vo.setCategoryNo(1L);
+		vo.setId("chu1070y");
 		
 		assertNotNull(dao.insertPost(vo));
+	}
+	
+	@Test
+	public void deletePost() {
+		PostVo vo = new PostVo();
+		vo.setCategoryNo(10L);
+		vo.setId("chu1070y");
+		
+		assertNotNull(dao.deletePost(vo));
 	}
 	
 }

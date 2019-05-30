@@ -28,8 +28,8 @@
 			      			<td>
 			      				<input type="text" size="60" name="title">
 				      			<select name="categoryNo">
-				      				<c:forEach items='${categoryList}' var='categ'>
-				      					<option value="${categ.no }">${categ.title }</option>
+				      				<c:forEach items='${categoryList}' var='categ' varStatus="status">
+				      					<option value="${status.index }">${categ.title }</option>
 				      				</c:forEach>
 				      			</select>
 				      		</td>
@@ -48,17 +48,17 @@
 		</div>
 		<c:import url="/WEB-INF/views/includes/footer_blog.jsp" />
 	</div>
+<input type="hidden" id="result" value="${result }">
+
 <script>
-$(function(){
 	
-	var category = $("#category");
+	if ("fail" == $("#result").val()){
+		alert("요청실패!!\n카테고리가 없습니다.\n카테고리부터 만들어주세요.");
+	}
 	
-
-
-	
-});
-</script>
-
+	if ("success" == $("#result").val()){
+		alert("정상적으로 등록되었습니다.");
+	}
 </script>
 </body>
 </html>

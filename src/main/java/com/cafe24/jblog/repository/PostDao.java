@@ -1,5 +1,7 @@
 package com.cafe24.jblog.repository;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -15,6 +17,16 @@ public class PostDao {
 	public Boolean insertPost(PostVo vo) {
 		
 		return 1 == sqlSession.insert("post.insertPost", vo);
+	}
+	
+	public Boolean deletePost(PostVo vo) {
+		
+		return 1 == sqlSession.delete("post.deletePost", vo);
+	}
+	
+	public List<PostVo> getPost(){
+		
+		return sqlSession.selectList("post.getPostList");
 	}
 
 }

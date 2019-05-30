@@ -59,6 +59,11 @@ public class UserController {
 		return "user/login";
 	}
 	
+	@PostMapping("/auth")
+	public void auth() {
+
+	}
+	
 	@ResponseBody
 	@RequestMapping("/checkid")
 	public JSONResult checkid(@RequestParam(value="id", required=true, defaultValue="") String id){

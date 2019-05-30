@@ -63,7 +63,7 @@
 		</div>
 		<c:import url="/WEB-INF/views/includes/footer_blog.jsp" />
 	</div>
-<input type="hidden" id="blogId" value="${blogId}" />
+<input type="hidden" id="blogId" value="${blogInfo.id}" />
 <script type="text/javascript">
 
 $(function(){
@@ -92,10 +92,11 @@ $(function(){
 				
 				category.empty();
 				category.append(chartTitle);
+				var number = 0;
 				
 				response.data.forEach(function(element){
 					
-					no.html(element.no);
+					no.html(number++);
 					title.html(element.title);
 					count.html(element.count);
 					description.html(element.description);

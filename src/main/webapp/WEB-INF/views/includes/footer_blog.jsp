@@ -6,6 +6,6 @@
 
 		<div id="footer">
 			<p>
-				<strong>Spring 이야기</strong> is powered by JBlog (c)2019
+				<strong>${blogInfo.title }</strong> is powered by JBlog (c)2019
 			</p>
 		</div>
