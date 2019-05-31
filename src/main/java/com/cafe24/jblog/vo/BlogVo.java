@@ -1,10 +1,13 @@
 package com.cafe24.jblog.vo;
 
+import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.web.multipart.MultipartFile;
 
 public class BlogVo {
 	
 	private String id;
+	
+	@NotEmpty
 	private String title;
 	private String logo;
 	

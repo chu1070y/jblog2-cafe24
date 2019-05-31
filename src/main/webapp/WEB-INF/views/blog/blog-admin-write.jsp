@@ -1,6 +1,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <!doctype html>
 <html>
@@ -21,6 +23,7 @@
 					<li><a href="${pageContext.servletContext.contextPath}/${authUser.id }/admin/category">카테고리</a></li>
 					<li class="selected">글작성</li>
 				</ul>
+
 				<form action="${pageContext.servletContext.contextPath}/${authUser.id }/admin/writePost" method="post">
 			      	<table class="admin-cat-write">
 			      		<tr>
@@ -34,21 +37,38 @@
 				      			</select>
 				      		</td>
 			      		</tr>
+						
 			      		<tr>
 			      			<td class="t">내용</td>
 			      			<td><textarea name="content"></textarea></td>
 			      		</tr>
+			      		
 			      		<tr>
 			      			<td>&nbsp;</td>
 			      			<td class="s"><input type="submit" value="포스트하기"></td>
 			      		</tr>
+			      		
 			      	</table>
+			     	 	<spring:hasBindErrors name="postVo" >
+							<c:if test="${errors.hasFieldErrors('title')}">
+								<strong style="color: red">
+									<spring:message code="${errors.getFieldError( 'title' ).codes[0] }" text="${errors.getFieldError( 'title' ).defaultMessage }" />
+								</strong>
+							</c:if>
+						</spring:hasBindErrors>
+						<spring:hasBindErrors name="postVo">
+							<c:if test="${errors.hasFieldErrors('content') }">
+								<strong style="color: red">
+									<spring:message code="${errors.getFieldError( 'content' ).codes[0] }" text="${errors.getFieldError( 'content' ).defaultMessage }" />
+								</strong>
+							</c:if>
+						</spring:hasBindErrors>
 				</form>
 			</div>
 		</div>
 		<c:import url="/WEB-INF/views/includes/footer_blog.jsp" />
 	</div>
-<input type="hidden" id="result" value="${result }">
+<input type="hidden" id="result" value="${result }" />
 
 <script>
 	

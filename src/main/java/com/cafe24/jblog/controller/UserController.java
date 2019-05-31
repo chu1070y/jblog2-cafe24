@@ -38,6 +38,7 @@ public class UserController {
 		
 		if(result.hasErrors()) {
 			List<ObjectError> list = result.getAllErrors();
+			
 			for(ObjectError error : list) {
 				System.out.println(error);
 			}

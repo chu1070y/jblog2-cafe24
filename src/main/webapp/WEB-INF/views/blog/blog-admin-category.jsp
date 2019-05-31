@@ -135,7 +135,11 @@ $(function(){
 				blogId: id
 			},
 			success: function(response){
-				console.log(response.data);
+
+				if(response.result == "fail"){
+					alert("카테고리명을 입력해주세요.");
+					return;
+				}
 				
 				showList(id);
 				
@@ -151,6 +155,12 @@ $(function(){
 	});
 	
 	function deleteCategory(no, id){
+		
+		var deleteAll = confirm("해당 카테고리와 포함되는 모든 글들이 지워집니다. 삭제하시겠습니까?");
+		
+		if(!deleteAll){
+			return;
+		}
 		
 		/*ajax 통신*/
 		$.ajax({

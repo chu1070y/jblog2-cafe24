@@ -1,10 +1,14 @@
 package com.cafe24.jblog.controller;
 
+import java.util.List;
 import java.util.Optional;
+
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -41,16 +45,18 @@ public class BlogController {
 		postVo.setNo(postNo.isPresent() ? postNo.get() : null);
 		postVo.setId(id);
 		
+		// 잘못된 URL 검색 및 에러 페이지로 이동
 		blogVo = blogService.getBlogInfo(id);
 		
 		if(blogVo == null) {
 			return "/error/404";
 		}
+		model.addAttribute("blogInfo", blogVo);
+		
+		List<PostVo> postList = blogService.getPost(postVo);
 		
 		model.addAttribute("categorys", blogService.getCategoryList(id));
-		model.addAttribute("posts", blogService.getPost(postVo));
-		
-		model.addAttribute("blogInfo", blogVo);
+		model.addAttribute("posts", postList);
 		return "/blog/blog-main";
 	}
 	
@@ -66,7 +72,18 @@ public class BlogController {
 	
 	@Auth
 	@PostMapping("admin/basic")
-	public String adminBasicPost(@ModelAttribute BlogVo vo){
+	public String adminBasicPost(
+			@PathVariable("id") String id, 
+			@ModelAttribute @Valid BlogVo vo, 
+			BindingResult result, 
+			Model model){
+		
+		if(result.hasErrors()) {
+			result.getAllErrors();
+			
+			model.addAttribute("blogInfo", blogService.getBlogInfo(id));
+			return "/blog/blog-admin-basic";
+		}
 		
 		blogService.updateBlogInfo(vo);
 		
@@ -87,6 +104,10 @@ public class BlogController {
 	@ResponseBody
 	@PostMapping("admin/insertCategory")
 	public JSONResult insertCategory(@ModelAttribute CategoryVo vo) {
+
+		if (vo.getTitle() == "") {
+			return JSONResult.fail("notitle");
+		}
 		
 		return JSONResult.success(blogService.insertCategory(vo));
 	}
@@ -116,15 +137,28 @@ public class BlogController {
 		
 		model.addAttribute("categoryList", blogService.getCategoryList(id));
 		model.addAttribute("blogInfo", blogService.getBlogInfo(id));
-		return "/blog/blog-admin-write";
+		return "blog/blog-admin-write";
 	}
 	
 	@Auth
 	@PostMapping("admin/writePost")
-	public String adminWritePost(@PathVariable("id") String id, @ModelAttribute PostVo vo, RedirectAttributes redirect){
+	public String adminWritePost(
+			@PathVariable("id") String id, 
+			@ModelAttribute @Valid PostVo vo, 
+			BindingResult result,
+			Model model,
+			RedirectAttributes redirect){
+		
+		if(result.hasErrors()) {
+			result.getAllErrors();
+			
+			model.addAttribute("categoryList", blogService.getCategoryList(id));
+			model.addAttribute("blogInfo", blogService.getBlogInfo(id));
+			
+			return "blog/blog-admin-write";
+		}
 		
 		if(vo.getCategoryNo() == null) {
-			System.out.println("null");
 			redirect.addFlashAttribute("result", "fail");
 		} else {
 			vo.setId(id);
