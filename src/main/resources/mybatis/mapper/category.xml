@@ -19,4 +19,8 @@
 		delete from category where no = #{no}
 	</delete>
 	
+	<select id="checkCategoryNo" parameterType="postvo" resultType="categoryvo">
+		select no from category where no = #{categoryNo}
+	</select>
+
 </mapper>

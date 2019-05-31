@@ -72,11 +72,21 @@
 			<mvc:mapping path="/user/logout" />
 			<bean class="com.cafe24.security.AuthLogoutInterceptor" />
 		</mvc:interceptor>
+		
+		<mvc:interceptor>
+			<mvc:mapping path="/**" />
+			<mvc:exclude-mapping path="/user/**" />
+			<mvc:exclude-mapping path="/assets/**" />
+			<mvc:exclude-mapping path="/error/**" />
+			<bean class="com.cafe24.security.BlogInterceptor" />
+		</mvc:interceptor>
 
 		<mvc:interceptor>
 			<mvc:mapping path="/**" />
 			<mvc:exclude-mapping path="/user/**" />
 			<mvc:exclude-mapping path="/assets/**" />
+			<mvc:exclude-mapping path="/error/**" />
+			<mvc:exclude-mapping path="/*/admin" />
 			<bean class="com.cafe24.security.AuthInterceptor" />
 		</mvc:interceptor>
 	</mvc:interceptors>

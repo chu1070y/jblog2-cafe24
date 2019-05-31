@@ -29,4 +29,9 @@ public class PostDao {
 		return sqlSession.selectList("post.getPostList", vo);
 	}
 
+	public PostVo checkPostNo(PostVo postVo) {
+
+		return sqlSession.selectOne("post.checkPostNo", postVo);
+	}
+
 }

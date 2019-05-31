@@ -4,7 +4,7 @@
 <mapper namespace="post">
 
 	<insert id="insertPost" parameterType="postvo">
-		insert into post value(null, #{title}, #{content}, now(), (select no from category where id = #{id} limit #{categoryNo} , 1))
+		insert into post value(null, #{title}, #{content}, now(), #{categoryNo})
 	</insert>
 	
 	<delete id="deletePost" parameterType="postvo">
@@ -16,7 +16,7 @@
 		from post a, (select no from category where id = #{id}) b
 		where a.category_no = b.no
 		<if test="categoryNo != null">
-			and a.category_no = (select no from category where id = #{id} limit #{categoryNo} , 1)
+			and a.category_no = #{categoryNo}
 		</if>
 		<if test="no != null">
 			and a.no = #{no}
@@ -24,5 +24,8 @@
 		order by no desc
 	</select>
 	
+	<select id="checkPostNo" resultType="postvo" parameterType="postvo">
+		select no from post where no = #{no} and category_no = #{categoryNo}
+	</select>
 
 </mapper>

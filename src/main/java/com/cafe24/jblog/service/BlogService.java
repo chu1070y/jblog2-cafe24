@@ -36,7 +36,10 @@ public class BlogService {
 		
 		String url = fileUploadService.restore(vo.getMultipartFile());
 		vo.setLogo(url);
-		System.out.println(url);
+		
+		if(url == "") {
+			vo.setLogo("assets/images/noimage.jpg");
+		}
 		
 		return blogDao.updateBlog(vo);
 	}
@@ -69,6 +72,16 @@ public class BlogService {
 	public List<PostVo> getPost(PostVo postVo){
 		
 		return postDao.getPost(postVo);
+	}
+
+	public CategoryVo checkCategoryNo(PostVo postVo) {
+		
+		return categoryDao.checkCategoryNo(postVo);
+	}
+
+	public PostVo checkPostNo(PostVo postVo) {
+
+		return postDao.checkPostNo(postVo);
 	}
 
 }

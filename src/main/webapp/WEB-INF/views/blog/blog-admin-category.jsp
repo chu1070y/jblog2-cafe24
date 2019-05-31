@@ -96,7 +96,7 @@ $(function(){
 				
 				response.data.forEach(function(element){
 					
-					no.html(number++);
+					no.html(element.no);
 					title.html(element.title);
 					count.html(element.count);
 					description.html(element.description);

@@ -32,7 +32,7 @@
 			      				<input type="text" size="60" name="title">
 				      			<select name="categoryNo">
 				      				<c:forEach items='${categoryList}' var='categ' varStatus="status">
-				      					<option value="${status.index }">${categ.title }</option>
+				      					<option value="${categ.no }">${categ.title }</option>
 				      				</c:forEach>
 				      			</select>
 				      		</td>

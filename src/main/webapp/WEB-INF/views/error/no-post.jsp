@@ -13,7 +13,7 @@
 	<div class="center-content">
 		<c:import url="/WEB-INF/views/includes/header_main.jsp" />
 		<br/>
-		<strong><h1>요청하신 페이지는 존재하지 않습니다.</h1></strong>
+		<strong><h1> 해당 카테고리 또는 포스트는 존재하지 않습니다.</h1></strong>
 		<br/>
 		<a href="${pageContext.servletContext.contextPath}/${blogInfo.id }">이전 블로그로 돌아가기</a>
 	</div>

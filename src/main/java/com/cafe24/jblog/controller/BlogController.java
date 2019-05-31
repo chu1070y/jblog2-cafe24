@@ -1,6 +1,5 @@
 package com.cafe24.jblog.controller;
 
-import java.util.List;
 import java.util.Optional;
 
 import javax.validation.Valid;
@@ -24,6 +23,7 @@ import com.cafe24.jblog.vo.BlogVo;
 import com.cafe24.jblog.vo.CategoryVo;
 import com.cafe24.jblog.vo.PostVo;
 import com.cafe24.security.Auth;
+import com.cafe24.security.Blog;
 
 @Controller
 @RequestMapping("/{id:^(?!assets|images).*}")
@@ -33,7 +33,7 @@ public class BlogController {
 	private BlogService blogService;
 	
 //////////////////////////////////////////////////블로그 메인 페이지
-	
+	@Blog
 	@GetMapping({"", "/{categoryNo}", "/{categoryNo}/{postNo}" })
 	public String blogMain(
 			@PathVariable("id") String id,
@@ -51,12 +51,10 @@ public class BlogController {
 		if(blogVo == null) {
 			return "/error/404";
 		}
+
 		model.addAttribute("blogInfo", blogVo);
-		
-		List<PostVo> postList = blogService.getPost(postVo);
-		
 		model.addAttribute("categorys", blogService.getCategoryList(id));
-		model.addAttribute("posts", postList);
+		model.addAttribute("posts", blogService.getPost(postVo));
 		return "/blog/blog-main";
 	}
 	

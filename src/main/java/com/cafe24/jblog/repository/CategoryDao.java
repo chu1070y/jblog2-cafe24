@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.cafe24.jblog.vo.CategoryVo;
+import com.cafe24.jblog.vo.PostVo;
 
 @Repository
 public class CategoryDao {
@@ -32,6 +33,12 @@ public class CategoryDao {
 		int count = sqlSession.delete("category.deleteCategory", vo);
 		
 		return 1 == count;
+	}
+
+
+	public CategoryVo checkCategoryNo(PostVo postVo) {
+
+		return sqlSession.selectOne("category.checkCategoryNo", postVo);
 	}
 	
 }
