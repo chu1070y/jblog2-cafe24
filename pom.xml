@@ -3,7 +3,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.cafe24</groupId>
-	<artifactId>jblog</artifactId>
+	<artifactId>jblog2</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 
@@ -16,19 +16,6 @@
 
 	<dependencies>
 
-<!-- 		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>servlet-api</artifactId>
-			<scope>provided</scope>
-			<version>2.5</version>
-		</dependency> -->
-
-		<dependency>
-			<groupId>javax.servlet.jsp</groupId>
-			<artifactId>jsp-api</artifactId>
-			<scope>provided</scope>
-			<version>2.1</version>
-		</dependency>
 
 
 		<!-- mariadb-java-client -->
